@@ -1,0 +1,297 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniSolve EduClear - Academic Doubt Clarification Platform</title>
+
+    <!-- Font Awesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS Libraries -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+    <link rel="stylesheet" href="{% static 'css/whiteboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forum.css' %}">
+</head>
+<body class="dark-theme">
+
+    <!-- Application Navigation Bar -->
+    <header class="app-header">
+        <div class="logo-container">
+            <div class="logo-icon">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div class="logo-text">
+                <span class="brand-name">OmniSolve <span class="brand-highlight">EduClear</span></span>
+                <span class="brand-tagline">Academic Doubt Clarification & Learning Platform</span>
+            </div>
+        </div>
+
+        <nav class="main-nav">
+            <button class="nav-btn active" data-tab="solver">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Doubt Solver
+            </button>
+            <button class="nav-btn" data-tab="forum">
+                <i class="fa-solid fa-comments"></i> Q&A Community
+            </button>
+            <button class="nav-btn" data-tab="formulas">
+                <i class="fa-solid fa-square-root-variable"></i> Formulas
+            </button>
+            <button class="nav-btn" data-tab="whiteboard">
+                <i class="fa-solid fa-pen-ruler"></i> Scratchpad
+            </button>
+            <button class="nav-btn" data-tab="flashcards">
+                <i class="fa-solid fa-clone"></i> Flashcards
+            </button>
+            <button class="nav-btn" data-tab="notes">
+                <i class="fa-solid fa-note-sticky"></i> Notes
+            </button>
+        </nav>
+
+        <div class="header-actions">
+            <button id="themeToggleBtn" class="action-icon-btn" title="Toggle Theme">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+            <button id="askDoubtBtn" class="btn btn-primary">
+                <i class="fa-solid fa-plus"></i> Ask a Doubt
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="app-container">
+
+        <!-- Subject Filter Bar -->
+        <section class="subject-filter-bar">
+            <span class="filter-label"><i class="fa-solid fa-filter"></i> Subject Filter:</span>
+            <div class="subject-pills" id="subjectPillContainer">
+                <button class="pill active" data-subject="ALL">All Subjects</button>
+                <button class="pill" data-subject="MATH"><i class="fa-solid fa-calculator"></i> Math</button>
+                <button class="pill" data-subject="PHYS"><i class="fa-solid fa-atom"></i> Physics</button>
+                <button class="pill" data-subject="CHEM"><i class="fa-solid fa-flask"></i> Chemistry</button>
+                <button class="pill" data-subject="CS"><i class="fa-solid fa-code"></i> Computer Science</button>
+                <button class="pill" data-subject="BIO"><i class="fa-solid fa-dna"></i> Biology</button>
+                <button class="pill" data-subject="APT"><i class="fa-solid fa-brain"></i> Aptitude</button>
+            </div>
+            <div class="search-input-wrapper">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="globalSearchInput" placeholder="Search doubts, formulas, topics..." autocomplete="off">
+            </div>
+        </section>
+
+        <!-- TAB 1: Doubt Solver View -->
+        <section id="tab-solver" class="tab-content active">
+            <div class="solver-hero">
+                <div class="hero-card">
+                    <h2><i class="fa-solid fa-lightbulb"></i> Instant Step-by-Step Doubt Resolution</h2>
+                    <p>Enter any academic problem in Math, Physics, Chemistry, CS, Biology, or Aptitude to get immediate structured step-by-step solutions with formulas, diagrams, and explanations.</p>
+                </div>
+            </div>
+
+            <div class="doubts-feed-layout">
+                <div class="feed-header">
+                    <h3><i class="fa-solid fa-book-open"></i> Solved Student Doubts (<span id="doubtsCount">0</span>)</h3>
+                    <div class="sort-controls">
+                        <label>Difficulty:</label>
+                        <select id="difficultyFilterSelect">
+                            <option value="">All Levels</option>
+                            <option value="EASY">Beginner</option>
+                            <option value="MEDIUM">Standard</option>
+                            <option value="HARD">Advanced</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="doubtsListContainer" class="doubts-grid">
+                    <!-- Dynamic Doubt Cards Loaded Here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: Community Q&A Forum -->
+        <section id="tab-forum" class="tab-content">
+            <div class="forum-layout">
+                <div class="forum-sidebar">
+                    <button id="newQuestionBtn" class="btn btn-secondary full-width">
+                        <i class="fa-solid fa-pen-to-square"></i> Post Forum Question
+                    </button>
+                    <div class="forum-stats-card">
+                        <h4>Community Stats</h4>
+                        <div class="stat-item"><i class="fa-solid fa-users"></i> Active Students: 1,420</div>
+                        <div class="stat-item"><i class="fa-solid fa-circle-check"></i> Solved Queries: 3,850</div>
+                        <div class="stat-item"><i class="fa-solid fa-star"></i> Verified Helpers: 95</div>
+                    </div>
+                </div>
+                <div class="forum-main">
+                    <div id="forumQuestionsContainer" class="forum-list">
+                        <!-- Dynamic Forum Threads -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: Formula Explorer -->
+        <section id="tab-formulas" class="tab-content">
+            <div class="formulas-container">
+                <div class="formula-header">
+                    <h2><i class="fa-solid fa-square-root-variable"></i> Interactive Academic Formula Explorer</h2>
+                    <p>Select a subject to explore formulas, dimensional analysis, and variable definitions.</p>
+                </div>
+                <div id="formulaCardsGrid" class="formula-grid">
+                    <!-- Dynamic Formula Cards -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: Scratchpad Whiteboard -->
+        <section id="tab-whiteboard" class="tab-content">
+            <div class="whiteboard-wrapper">
+                <div class="whiteboard-toolbar">
+                    <div class="tool-group">
+                        <button class="wb-tool-btn active" data-tool="pen" title="Pen"><i class="fa-solid fa-pen"></i></button>
+                        <button class="wb-tool-btn" data-tool="eraser" title="Eraser"><i class="fa-solid fa-eraser"></i></button>
+                        <button class="wb-tool-btn" data-tool="line" title="Line"><i class="fa-solid fa-slash"></i></button>
+                        <button class="wb-tool-btn" data-tool="rect" title="Rectangle"><i class="fa-regular fa-square"></i></button>
+                        <button class="wb-tool-btn" data-tool="circle" title="Circle"><i class="fa-regular fa-circle"></i></button>
+                    </div>
+                    <div class="tool-group">
+                        <label>Color:</label>
+                        <input type="color" id="wbColorPicker" value="#3B82F6">
+                        <label>Stroke:</label>
+                        <input type="range" id="wbStrokeWidth" min="1" max="20" value="3">
+                    </div>
+                    <div class="tool-group">
+                        <button id="wbClearBtn" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i> Clear</button>
+                        <button id="wbSaveBtn" class="btn btn-success"><i class="fa-solid fa-download"></i> Save Whiteboard</button>
+                    </div>
+                </div>
+                <div class="canvas-container">
+                    <canvas id="whiteboardCanvas" width="1100" height="600"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: Study Flashcards -->
+        <section id="tab-flashcards" class="tab-content">
+            <div class="flashcards-wrapper">
+                <div class="flashcard-deck-selector" id="flashcardDeckContainer">
+                    <!-- Dynamic Decks Loaded Here -->
+                </div>
+                <div id="activeFlashcardViewer" class="flashcard-stage hidden">
+                    <div class="flashcard-card" id="flashcardElement">
+                        <div class="flashcard-front">
+                            <span class="card-badge">QUESTION</span>
+                            <div class="card-content" id="cardFrontText">Select a Deck</div>
+                            <span class="card-flip-hint"><i class="fa-solid fa-rotate"></i> Click to flip card</span>
+                        </div>
+                        <div class="flashcard-back">
+                            <span class="card-badge badge-success">ANSWER / SOLUTION</span>
+                            <div class="card-content" id="cardBackText">Solution appears here</div>
+                        </div>
+                    </div>
+                    <div class="flashcard-controls">
+                        <button id="prevCardBtn" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+                        <span id="cardProgressTracker">Card 1 / 5</span>
+                        <button id="nextCardBtn" class="btn btn-primary">Next <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 6: Student Markdown Notes -->
+        <section id="tab-notes" class="tab-content">
+            <div class="notes-layout">
+                <div class="notes-sidebar">
+                    <button id="newNoteBtn" class="btn btn-primary full-width"><i class="fa-solid fa-plus"></i> New Note</button>
+                    <div id="notesListContainer" class="notes-list">
+                        <!-- Saved Student Notes -->
+                    </div>
+                </div>
+                <div class="notes-editor-pane">
+                    <input type="text" id="noteTitleInput" placeholder="Note Title..." class="note-title-field">
+                    <textarea id="noteContentTextarea" placeholder="Write your student notes in Markdown / LaTeX format..." class="note-content-field"></textarea>
+                    <div class="note-actions">
+                        <button id="saveNoteBtn" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Save Note</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal 1: Ask New Doubt Modal -->
+    <div id="askDoubtModal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-circle-question"></i> Submit Academic Doubt for Instant Solution</h3>
+                <button class="close-modal-btn" data-close="askDoubtModal">&times;</button>
+            </div>
+            <form id="askDoubtForm">
+                <div class="form-group">
+                    <label>Doubt Title / Question Summary *</label>
+                    <input type="text" id="doubtTitleInput" placeholder="e.g. How to evaluate the integral of x*sin(x)?" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Subject *</label>
+                        <select id="doubtSubjectSelect" required>
+                            <option value="MATH">Mathematics</option>
+                            <option value="PHYS">Physics</option>
+                            <option value="CHEM">Chemistry</option>
+                            <option value="CS">Computer Science</option>
+                            <option value="BIO">Biology</option>
+                            <option value="APT">General Aptitude</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Difficulty</label>
+                        <select id="doubtDifficultySelect">
+                            <option value="EASY">Beginner</option>
+                            <option value="MEDIUM" selected>Standard</option>
+                            <option value="HARD">Advanced</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Full Problem Statement *</label>
+                    <textarea id="doubtQuestionTextarea" rows="4" placeholder="Provide complete question details, given parameters, and what needs to be solved..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Optional LaTeX Math / Formula Expression</label>
+                    <input type="text" id="doubtLatexInput" placeholder="e.g. \int x \sin(x) \, dx">
+                </div>
+                <div class="form-group">
+                    <label>Optional Code Snippet (For CS Doubts)</label>
+                    <textarea id="doubtCodeTextarea" rows="3" placeholder="Paste code snippet here if applicable..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-close="askDoubtModal">Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-wand-magic-sparkles"></i> Solve Doubt</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- JavaScript Application Modules -->
+    <script src="{% static 'js/state.js' %}"></script>
+    <script src="{% static 'js/knowledge/math.js' %}"></script>
+    <script src="{% static 'js/knowledge/physics.js' %}"></script>
+    <script src="{% static 'js/knowledge/chemistry.js' %}"></script>
+    <script src="{% static 'js/knowledge/cs.js' %}"></script>
+    <script src="{% static 'js/knowledge/biology.js' %}"></script>
+    <script src="{% static 'js/knowledge/aptitude.js' %}"></script>
+    <script src="{% static 'js/components/doubt_solver.js' %}"></script>
+    <script src="{% static 'js/components/forum.js' %}"></script>
+    <script src="{% static 'js/components/whiteboard.js' %}"></script>
+    <script src="{% static 'js/components/flashcards.js' %}"></script>
+    <script src="{% static 'js/components/formula_explorer.js' %}"></script>
+    <script src="{% static 'js/components/note_editor.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

@@ -4,7 +4,7 @@ OmniSolve EduClear is a full-stack web application engineered for students to cl
 
 ---
 
-## Features
+## Features Involved.
 
 - **Step-by-Step Doubt Solvers**: Heuristic analytical engines for Math, Physics, Chemistry, CS, Biology, and Aptitude.
 - **Q&A Community Forum**: Post questions, vote on helpful answers, and get verified helper solutions.

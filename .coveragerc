@@ -1,0 +1,12 @@
+[run]
+source = .
+omit =
+    */migrations/*
+    */tests/*
+    manage.py
+    educlear_backend/wsgi.py
+    educlear_backend/asgi.py
+
+[report]
+show_missing = True
+precision = 2

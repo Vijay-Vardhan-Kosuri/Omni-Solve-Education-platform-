@@ -1,0 +1,23 @@
+{
+  "name": "omnisolve-educlear",
+  "version": "1.0.0",
+  "description": "Academic Doubt Clarification Platform for Students",
+  "main": "main.py",
+  "scripts": {
+    "start": "python main.py",
+    "dev": "python manage.py runserver 127.0.0.1:8000",
+    "test": "pytest --cov=. tests/",
+    "build": "python manage.py collectstatic --noinput"
+  },
+  "keywords": [
+    "education",
+    "doubts-solver",
+    "django",
+    "academic",
+    "student-portal"
+  ],
+  "author": "Antigravity Team",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}

@@ -17,7 +17,8 @@
     "student-portal"
   ],
   "author": "Antigravity Team",
-  "license": "MIT",
+  "license": "UNLICENSED",
+  "private": true,
   "dependencies": {},
   "devDependencies": {}
 }

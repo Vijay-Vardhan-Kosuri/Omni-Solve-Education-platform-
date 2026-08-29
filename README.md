@@ -143,4 +143,4 @@ omnisolve-educlear/
 
 ## License
 
-This project is licensed under the MIT License.
+Proprietary and Confidential. All Rights Reserved.
